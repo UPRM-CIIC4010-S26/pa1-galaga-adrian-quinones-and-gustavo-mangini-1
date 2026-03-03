@@ -17,8 +17,10 @@ Program::Program() {
         });
 
     for (int i = 0; i < 30; i++) {
-        float x = 250 + 50 * i;
-        float y = 200 + 50 * i;
+        int column = i % 10;
+        int row = i / 10;
+        float x = 250 + 50 * column;
+        float y = 200 + 50 * row;
 
         Enemy::enemies.push_back(std::pair<std::pair<float, float>, Enemy*> {
             std::pair<float, float>{x, y}, 
