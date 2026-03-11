@@ -52,7 +52,6 @@ void StdEnemy::draw() {
             break;
     }
 }
-
 void StdEnemy::update(std::pair<float, float> pos, HitBox target) {
     frameChange();
     if (!spawning && this->specialCooldown > 0) {

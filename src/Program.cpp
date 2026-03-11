@@ -37,7 +37,7 @@ void Program::Update() {
     pauseFrames = std::max(pauseFrames - 1, 0);
 
     if (!startup && !paused && !gameOver && pauseFrames <= 0) {
-        Enemy::ManageEnemies(player->hitBox);
+        AddScore(Enemy::ManageEnemies(player->hitBox));
         StdEnemy::attackReset();
         ManageEnemyRespawns();
         player->update();
@@ -85,7 +85,8 @@ void Program::Draw() {
 
     for (Projectile p : Projectile::projectiles) p.draw();
     for (std::pair<std::pair<float, float>, Enemy*>& p : Enemy::enemies) if (p.second) p.second->draw();
-
+    
+    DrawPoints();
     if (startup) DrawStartup();
     if (paused) DrawPauseScreen();
     if (gameOver) DrawGameOver();
@@ -151,6 +152,10 @@ void Program::DrawGameOver() {
     DrawText("Game Over", (GetScreenWidth() / 2) - 380, 50, 144, WHITE);
     DrawText("Press Enter", (GetScreenWidth() / 2) - 75, GetScreenHeight() / 2, 24, GRAY);
 }
+void Program::DrawPoints() {
+    DrawText("Score:", (GetScreenWidth() / 2) - 20, 20, 20, WHITE);
+    DrawText(TextFormat("%i", Program::score), (GetScreenWidth() / 2) + 50, 20, 20, WHITE);
+}
 
 void Program::KeyInputs() {
     if ((!gameOver && !startup && IsKeyPressed('P')) || (paused && IsKeyPressed(KEY_ENTER))) paused = !paused;
@@ -166,6 +171,9 @@ void Program::KeyInputs() {
     if (startup && IsKeyPressed(KEY_ENTER)) {
         startup = false;
     }
+    if (IsKeyPressed(KEY_K)) {
+    AddScore(500);
+}
 
     if (!startup && !paused && !gameOver && pauseFrames <= 0) player->keyInputs();
    
@@ -182,11 +190,16 @@ void Program::PlayerReset() {
     pauseFrames = 120;
     lives--;
 }
+int Program::score = 0;
+void Program::AddScore(int points) {
+    score += points;
+}
 
 void Program::Reset() {
     Enemy::enemies.clear();
     StdEnemy::attackInProgress = false;
     player = new Player((GetScreenWidth() / 2) - 15, GetScreenHeight() * 0.75f);
+    Program::score = 0;
     respawnCooldown = 1080;
     respawns = 0;
     count = 0;

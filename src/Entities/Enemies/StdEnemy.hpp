@@ -12,6 +12,7 @@ class StdEnemy : public Enemy {
         inline static bool attackInProgress = false;
 
         StdEnemy(float x, float y) : Enemy(x, y) { 
+            this->points = 50;
             this->cooldown = GetRandomValue(240, 1380);
             this->health = 2; 
         }
@@ -20,6 +21,7 @@ class StdEnemy : public Enemy {
             this->cooldown = GetRandomValue(300, 1380);
             this->health = 2;
             this->spawning = newSpawn;
+            this->points = 50;
         }
 
         void draw() override;
