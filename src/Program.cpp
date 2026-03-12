@@ -29,6 +29,7 @@ SetMusicVolume(SoundManager::musicbg, 1.0f);
         });
     }
 }
+// Finished Phase 1, Bullet 1 (Adrián E. Quiñones Pérez)
 
 void Program::Update() {
     UpdateMusicStream(SoundManager::musicbg);
@@ -119,6 +120,18 @@ void Program::ManageEnemyRespawns() {
                 break;
             }
         }
+        if(score >= 4000){
+            respawnCooldown = 100;
+        }
+        else if(score >= 2000){
+            respawnCooldown = 200;
+        }
+        else if(score >= 1000){
+            respawnCooldown = 400;
+        }
+        else{
+            respawnCooldown = 1080;
+        }
     }
 
     if(respawns >= 4) {
@@ -136,6 +149,7 @@ void Program::ManageEnemyRespawns() {
         delay = 20;
     }
 }
+// Finished Phase 2, Bullet 4 (Adrián E. Quiñones Pérez)
 
 void Program::DrawStartup() {
     DrawRectangle(0, 0, (float)GetScreenWidth(), (float)GetScreenHeight(), Color{0, 0, 0, 125});
@@ -217,7 +231,7 @@ void Program::Reset() {
     count = 0;
     delay = 0;
     lives = 3;
-        Enemy::enemies.push_back(std::pair<std::pair<float, float>, Enemy*> {
+    Enemy::enemies.push_back(std::pair<std::pair<float, float>, Enemy*> {
             std::pair<float, float>{350, 150}, 
             new SpEnemy(350, 150)
         });
@@ -239,3 +253,4 @@ void Program::Reset() {
         });
     }
 }
+// Finished Phase 1, Bullet 3 (Adrián E. Quiñones Pérez)
