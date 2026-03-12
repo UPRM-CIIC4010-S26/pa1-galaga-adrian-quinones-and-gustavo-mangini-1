@@ -28,3 +28,4 @@ class SoundManager {
         UnloadMusicStream(musicbg);
     }
 };
+//Added Bg Music(Gustavo R. Mangini Pinto)

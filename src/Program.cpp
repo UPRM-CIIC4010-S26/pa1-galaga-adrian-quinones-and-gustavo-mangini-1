@@ -74,6 +74,7 @@ PlayerReset();
         Projectile::ProjectileCollision();
     }
 }
+//Finished Phase 1, Bullet 2 (Gustavo R. Mangini Pinto)
 
 void Program::Draw() {
     background.Draw();
@@ -196,7 +197,7 @@ void Program::KeyInputs() {
     if (!startup && !paused && !gameOver && pauseFrames <= 0) player->keyInputs();
    
 }
-
+//Finished Phase 2, Bullet 2(Gustavo R. Mangini Pinto)
 void Program::PlayerReset() {
     Animation::animations.push_back(
         Animation(player->position.first, player->position.second, 16, 0, 33, 34, 30 ,30, 3, ImageManager::SpriteSheet)
@@ -220,7 +221,7 @@ lives++;
 nextLifeScore = nextLifeScore + 1000;
     }
 }
-
+//Finished Phase 2, Bullet 1 and 3 and HighScore(Gustavo R. Manngini Pinto)
 void Program::Reset() {
     Enemy::enemies.clear();
     StdEnemy::attackInProgress = false;

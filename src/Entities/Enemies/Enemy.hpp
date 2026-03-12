@@ -71,7 +71,7 @@ class Enemy {
                     }
                 }
             }
-            
+            // Finished Phase 3, Bullet 2 (Gustavo R. Mangini Pinto)
             for (int i = 0; i < Enemy::enemies.size(); i++) {
                 if ((Enemy::enemies[i].second && Enemy::enemies[i].second->position.first <= -30) || 
                     (!Enemy::enemies[i].second && Enemy::enemies[i].first.first == 0 && Enemy::enemies[i].first.second == 0)) {
@@ -88,3 +88,4 @@ class Enemy {
             return earnedPoints;
         }
 };
+ // Finished Phase 3, Bullet 2 (Gustavo R. Mangini Pinto)
