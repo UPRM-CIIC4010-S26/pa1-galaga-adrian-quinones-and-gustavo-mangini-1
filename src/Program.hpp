@@ -21,6 +21,7 @@ class Program {
         int pauseFrames = 0;
         int nextLifeScore = 1000;
         int score = 0;
+        static int highScore;
 
         bool startup = true;
         bool paused = false;

@@ -1,11 +1,12 @@
 #include "Program.hpp"
-
+int Program::highScore = 0;
 Program::Program() {
     Background::sideWalls = std::pair<HitBox, HitBox>{ 
         HitBox(0, 0, 10, GetScreenHeight()), 
         HitBox(GetScreenWidth() - 10, 0, 10, GetScreenHeight())
     };
-
+PlayMusicStream(SoundManager::musicbg);
+SetMusicVolume(SoundManager::musicbg, 1.0f);
     Enemy::enemies.push_back(std::pair<std::pair<float, float>, Enemy*> {
             std::pair<float, float>{350, 150}, 
             new SpEnemy(350, 150)
@@ -30,6 +31,7 @@ Program::Program() {
 }
 
 void Program::Update() {
+    UpdateMusicStream(SoundManager::musicbg);
     for (Animation& a : Animation::animations) a.update();
     for (int i = 0; i < Animation::animations.size(); i++) {
         if (Animation::animations[i].done) Animation::animations.erase(Animation::animations.begin() + i);
@@ -66,6 +68,7 @@ PlayerReset();
         }
 
         if (lives <= 0 && pauseFrames <= 0) gameOver = true;
+
         Projectile::CleanProjectiles();
         Projectile::ProjectileCollision();
     }
@@ -75,7 +78,6 @@ void Program::Draw() {
     background.Draw();
     if (pauseFrames <= 0 && !gameOver) player->draw();
     for (Animation& a : Animation::animations) a.draw();
-DrawText(TextFormat("Lives: %i", lives), 20, GetScreenHeight() - 60, 20, WHITE);
     for (int i = 0; i < lives; i++) {
          DrawTexturePro(ImageManager::SpriteSheet, Rectangle{0, 0, 17, 18}, 
                    Rectangle{10.0f + i * 30, GetScreenHeight() - 80.0f, 40, 40}, 
@@ -153,8 +155,10 @@ void Program::DrawGameOver() {
     DrawText("Press Enter", (GetScreenWidth() / 2) - 75, GetScreenHeight() / 2, 24, GRAY);
 }
 void Program::DrawPoints() {
-    DrawText("Score:", (GetScreenWidth() / 2) - 20, 20, 20, WHITE);
-    DrawText(TextFormat("%i", Program::score), (GetScreenWidth() / 2) + 50, 20, 20, WHITE);
+    DrawText("Score:", (GetScreenWidth() / 2) - 120, 20, 20, WHITE);
+    DrawText(TextFormat("%i", Program::score), (GetScreenWidth() / 2) -40, 20, 20, WHITE);
+    DrawText("High Score:", (GetScreenWidth() / 2) - 120, 50, 20, WHITE);
+    DrawText(TextFormat("%i", Program::highScore), (GetScreenWidth() / 2) + 20, 50, 20, WHITE);
 }
 
 void Program::KeyInputs() {
@@ -192,6 +196,9 @@ void Program::PlayerReset() {
 }
 void Program::AddScore(int points) {
     score += points;
+    if(score > highScore){
+    highScore = score;
+}
     while(score >= this->nextLifeScore){
         if(lives < 5){
 lives++;
