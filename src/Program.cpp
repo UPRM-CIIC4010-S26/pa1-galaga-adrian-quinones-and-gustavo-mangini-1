@@ -75,10 +75,10 @@ void Program::Draw() {
     background.Draw();
     if (pauseFrames <= 0 && !gameOver) player->draw();
     for (Animation& a : Animation::animations) a.draw();
-
+DrawText(TextFormat("Lives: %i", lives), 20, GetScreenHeight() - 60, 20, WHITE);
     for (int i = 0; i < lives; i++) {
          DrawTexturePro(ImageManager::SpriteSheet, Rectangle{0, 0, 17, 18}, 
-                   Rectangle{10.0f + i * 30, GetScreenHeight() - 30.0f, 20, 20}, 
+                   Rectangle{10.0f + i * 30, GetScreenHeight() - 80.0f, 40, 40}, 
                    Vector2{0, 0}, 0, WHITE);
     }
 
@@ -190,9 +190,14 @@ void Program::PlayerReset() {
     pauseFrames = 120;
     lives--;
 }
-int Program::score = 0;
 void Program::AddScore(int points) {
     score += points;
+    while(score >= this->nextLifeScore){
+        if(lives < 5){
+lives++;
+        }
+nextLifeScore = nextLifeScore + 1000;
+    }
 }
 
 void Program::Reset() {

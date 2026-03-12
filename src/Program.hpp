@@ -19,7 +19,8 @@ class Program {
         int delay = 0;
         int lives = 3;
         int pauseFrames = 0;
-        static int score;
+        int nextLifeScore = 1000;
+        int score = 0;
 
         bool startup = true;
         bool paused = false;
@@ -38,7 +39,7 @@ class Program {
         void PlayerReset();
         void Reset();
         void DrawPoints();
-        static void AddScore(int points);
+        void AddScore(int points);
           
         ~Program() {}
 };
